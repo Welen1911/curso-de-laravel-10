@@ -1,11 +1,31 @@
-<h1>Dúvidas abridas:</h1>
+<h1>Listagem dos Suportes:</h1>
 
-@foreach ($supports as $support)
-    <ol>
-        <li>Assunto: {{ $support['subject'] }}</li>
-        <li>Detalhes: {{ $support['body'] }}</li>
-        <li>Status: {{ $support['status'] }}</li>
-    </ol>
-@endforeach
+<table>
+    <thead>
+        <th>Assunto</th>
+        <th>Descrição</th>
+        <th>Status</th>
+        <th></th>
+    </thead>
+    <tbody>
+        @foreach ($supports as $support)
+            <tr>
+                <td>{{ $support['subject'] }}</td>
+                <td>{{ $support['body'] }}</td>
+                <td>{{ $support['status'] }}</td>
+                <td>
+                    <a href="{{ route('supports.show', $support['id']) }}">Detalhes</a>
+                </td>
+                <td>
+                    <a href="{{ route('supports.edit',$support['id']) }}">Editar</a>
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
 
-<a href="{{ route('supports.create') }}">Cadastrar dúvida</a>
+</table>
+
+<br>
+
+
+<a href="/supports/create">Cadastrar dúvida</a>
