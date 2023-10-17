@@ -1,14 +1,9 @@
 <h1>Editar dúvida:</h1>
-@if ($errors->any())
-    @foreach ($errors->all() as $error)
-        {{ $error }}
-    @endforeach
-@endif
 
-<form action="{{ route('supports.update', $support->id)}}" method="post">
-    @csrf
+<x-alert/>
+
+<form action="{{ route('supports.update', $support->id) }}" method="post">
     @method('put')
-    <input type="text" name="subject" placeholder="Assunto" value="{{ $support->subject }}"><br>
-    <textarea name="body" id="" cols="30" rows="10" placeholder="Descrição">{{ $support->body }}</textarea>
+    @include('admin.supports.partials.form', ['support' => $support])
     <button type="submit">Enviar</button>
 </form>

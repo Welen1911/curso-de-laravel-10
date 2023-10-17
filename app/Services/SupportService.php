@@ -1,18 +1,22 @@
 <?php 
 namespace App\Services;
 
-use App\DTO\CreateSupportDTO;
-use App\DTO\UpdateSupportDTO;
+use App\DTO\Supports\CreateSupportDTO;
+use App\DTO\Supports\UpdateSupportDTO;
 use App\Repositories\SupportRepositoryInterface;
+use App\Repositories\PaginateInterface;
+
 use stdClass;
 
 class SupportService {
 
     public function __construct(
         protected SupportRepositoryInterface $repository
-    )
-    {
-    }
+    ) {}
+
+    public function paginate(int $pag = 1, int $totPerPag = 15, string $filter = null): PaginateInterface {
+        return $this->repository->paginate($pag, $totPerPag, $filter);
+     }
 
     public function getAll(string $filter = null): array | null {
        return $this->repository->getAll($filter);
@@ -24,8 +28,9 @@ class SupportService {
 
     public function new(
         CreateSupportDTO $dto
-    ): stdClass {
-        return $this->repository->new($dto);
+    ): void {
+        // return 
+        $this->repository->new($dto);
     }
 
     public function update(

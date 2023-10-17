@@ -1,10 +1,15 @@
 <?php
 
+use App\Enums\SupportStatus;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\vaga\VagaController;
 use App\Models\Support;
 use Illuminate\Support\Facades\Route;
 
+
+// Route::get('/test', function () {
+//     dd();
+// });
 
 Route::get('/', function () {
     return view('welcome');

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\CreateSupportDTO;
-use App\DTO\UpdateSupportDTO;
+use App\DTO\Supports\CreateSupportDTO;
+use App\DTO\Supports\UpdateSupportDTO;
 use App\Http\Requests\StoreUpdateSupport;
 use App\Models\Support;
 use App\Services\SupportService;
@@ -19,16 +19,23 @@ class SupportController extends Controller
     }
 
     public function index(Request $request) {
-        $supports = $this->service->getAll($request->filter);
-
-
-        return view('admin.supports.index', compact('supports'));
+        $supports = $this->service->paginate(
+            pag: $request->get('page', 1), 
+            totPerPag: $request->get('per_page', 5), 
+            filter: $request->filter);
+        
+        $filters = ['filter' => $request->get('filter', '')];
+        
+        return view('admin.supports.index', compact('supports', 'filters'));
     }
 
-    public function indexApi(Support $support) {
-        $supports = $support->all();
+    public function indexApi(Request $request) {
+        $supports = $this->service->paginate(
+            pag: $request->get('page', 1), 
+            totPerPag: $request->get('per_page', 5), 
+            filter: $request->filter);
 
-        return response()->json($supports, 200);
+        return response()->json($supports->items(), 200);
     }
 
     public function create() {

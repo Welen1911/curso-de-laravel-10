@@ -3,18 +3,28 @@
 namespace App\Repositories;
 use App\Repositories\SupportRepositoryInterface;
 use stdClass;
-use App\DTO\CreateSupportDTO;
-use App\DTO\UpdateSupportDTO;
+use App\DTO\Supports\CreateSupportDTO;
+use App\DTO\Supports\UpdateSupportDTO;
 use App\Models\Support;
 
 class SupportEloquentORM implements SupportRepositoryInterface {
     
     public function __construct(
         protected Support $model
-    )
-    {
-        
+    ) {}
+
+    public function paginate(int $pag = 1, int $totPerPag = 15, string $filter = null): PaginateInterface {
+        $result = $this->model
+            ->where(function ($query) use ($filter) {
+                if ($filter) {
+                    $query->where('subject', $filter);
+                    $query->orWhere('body', 'like', "%{$filter}%");
+                }
+            })
+            ->paginate($totPerPag, ['*'], 'page', $pag);
+            return new PaginationPresenter($result);
     }
+
 
     public function getAll(string $filter = null): array | null {
         
@@ -38,8 +48,9 @@ class SupportEloquentORM implements SupportRepositoryInterface {
         return (object) $support->toArray();
     }
 
-    public function new(CreateSupportDTO $dto): stdClass | null {
-        return (object) $this->model->create(
+    public function new(CreateSupportDTO $dto): void {
+        // return (object) 
+        $this->model->create(
            (array) $dto
         );
     }

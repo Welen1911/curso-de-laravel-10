@@ -1,14 +1,8 @@
 <h1>Nova dúvida!</h1>
 
-@if ($errors->any())
-    @foreach ($errors->all() as $error)
-        {{ $error }}
-    @endforeach
-@endif
+<x-alert/>
 
 <form action="{{ route('supports.store') }}" method="post">
-    @csrf
-    <input type="text" name="subject" placeholder="Assunto" value="{{ old('subject') }}"><br>
-    <textarea name="body" id="" cols="30" rows="10" placeholder="Descrição">{{ old('body') }}</textarea>
+    @include('admin.supports.partials.form', ['support' => ''])
     <button type="submit">Enviar</button>
 </form>
