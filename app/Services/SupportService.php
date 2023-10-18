@@ -5,6 +5,7 @@ use App\DTO\Supports\CreateSupportDTO;
 use App\DTO\Supports\UpdateSupportDTO;
 use App\Repositories\SupportRepositoryInterface;
 use App\Repositories\PaginateInterface;
+use App\Models\Support;
 
 use stdClass;
 
@@ -28,9 +29,8 @@ class SupportService {
 
     public function new(
         CreateSupportDTO $dto
-    ): void {
-        // return 
-        $this->repository->new($dto);
+    ): Support {
+        return $this->repository->new($dto);
     }
 
     public function update(

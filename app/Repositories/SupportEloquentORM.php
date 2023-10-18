@@ -48,8 +48,8 @@ class SupportEloquentORM implements SupportRepositoryInterface {
         return (object) $support->toArray();
     }
 
-    public function new(CreateSupportDTO $dto): void {
-        // return (object) 
+    public function new(CreateSupportDTO $dto): Support {
+        return (object) 
         $this->model->create(
            (array) $dto
         );

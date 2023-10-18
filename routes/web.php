@@ -7,10 +7,6 @@ use App\Models\Support;
 use Illuminate\Support\Facades\Route;
 
 
-// Route::get('/test', function () {
-//     dd();
-// });
-
 Route::get('/', function () {
     return view('welcome');
 });

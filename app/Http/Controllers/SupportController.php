@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DTO\Supports\CreateSupportDTO;
 use App\DTO\Supports\UpdateSupportDTO;
+use App\Enums\SupportStatus;
 use App\Http\Requests\StoreUpdateSupport;
 use App\Models\Support;
 use App\Services\SupportService;
@@ -51,18 +52,10 @@ class SupportController extends Controller
 
     public function store(StoreUpdateSupport $request) {
         
-        $this->service->new(new CreateSupportDTO($request->subject, 'a', $request->body));
+        $this->service->new(new CreateSupportDTO($request->subject, SupportStatus::A, $request->body));
 
         return redirect()->route('supports.index');
 
-    }
-
-    public function storeApi(StoreUpdateSupport $request, Support $support) {
-        $data = $request->validated();
-        $data['status'] = 'a';
-
-        $support->create($data);
-        return response()->json($data, 201);
     }
 
     public function show(string $id) {
@@ -90,7 +83,7 @@ class SupportController extends Controller
 
     public function update(StoreUpdateSupport $request, $id) {
         
-        $support = $this->service->update(new UpdateSupportDTO($id, $request->subject, 'a', $request->body));
+        $support = $this->service->update(new UpdateSupportDTO($id, $request->subject, SupportStatus::A, $request->body));
         
         if (!$support) {
             return back();

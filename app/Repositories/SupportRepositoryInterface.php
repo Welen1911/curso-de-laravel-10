@@ -17,7 +17,7 @@ interface SupportRepositoryInterface {
 
     public function findOne(string $id): stdClass | null;
 
-    public function new(CreateSupportDTO $dto): void;
+    public function new(CreateSupportDTO $dto): Support;
 
     public function update(UpdateSupportDTO $dto): stdClass | null;
 
