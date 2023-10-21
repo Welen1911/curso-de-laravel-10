@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Adapters\ApiAdapter;
 use App\DTO\Supports\CreateSupportDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateSupport;
 use App\Http\Resources\SupportResource;
+use App\Models\Support;
 use App\Services\SupportService;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
@@ -18,9 +20,17 @@ class SupportController extends Controller
     ) {
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // $support = Support::paginate();
+
+        $supports = $this->service->paginate(
+            pag: $request->get('page', 1), 
+            totPerPag: $request->get('per_page', 1), 
+            filter: $request->filter
+        );
+
+        return ApiAdapter::toJson($supports);
     }
 
     /**
