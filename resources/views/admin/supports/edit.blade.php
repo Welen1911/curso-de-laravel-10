@@ -1,9 +1,16 @@
-<h1>Editar dúvida:</h1>
+@extends('admin.template.layout')
 
-<x-alert/>
+@section('title', 'Criar Novo Tópico')
 
-<form action="{{ route('supports.update', $support->id) }}" method="post">
-    @method('put')
-    @include('admin.supports.partials.form', ['support' => $support])
-    <button type="submit">Enviar</button>
+@section('header')
+<h1 class="text-lg text-black-500">Dúvida {{ $support->subject }}</h1>
+@endsection
+
+@section('content')
+<form action="{{ route('supports.update', $support->id) }}" method="POST">
+    @method('PUT')
+    @include('admin.supports.partials.form', [
+        'support' => $support
+    ])
 </form>
+@endsection
