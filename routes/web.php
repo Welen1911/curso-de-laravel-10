@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('supports.index');
 });
 
 Route::get('/supports', [SupportController::class, 'index'])->name('supports.index');

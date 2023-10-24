@@ -22,7 +22,7 @@ class SupportController extends Controller
     public function index(Request $request) {
         $supports = $this->service->paginate(
             pag: $request->get('page', 1), 
-            totPerPag: $request->get('per_page', 5), 
+            totPerPag: $request->get('per_page', 10), 
             filter: $request->filter);
         
         $filters = ['filter' => $request->get('filter', '')];
@@ -74,6 +74,7 @@ class SupportController extends Controller
     public function destroy(string $id) {
         $this->service->delete($id);
 
-        return redirect()->route('supports.index');
+        return redirect()->route('supports.index')
+        ->with('message', 'Deletado com sucesso!');
     }
 }
