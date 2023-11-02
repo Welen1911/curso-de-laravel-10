@@ -26,12 +26,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/teste', [SupportController::class, 'create'])->name('supports.create');
+    Route::get('/supports_create', [SupportController::class, 'create'])->name('supports.create');
     Route::post('/supports/store', [SupportController::class, 'store'])->name('supports.store');
 
     Route::get('/supports/{id}/edit', [SupportController::class, 'edit'])->name('supports.edit');
     Route::put('/supports/update/{id}', [SupportController::class, 'update'])->name('supports.update');
-
 
     Route::delete('/supports/destroy/{id}', [SupportController::class, 'destroy'])->name('supports.destroy');
 });
