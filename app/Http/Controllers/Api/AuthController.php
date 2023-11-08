@@ -40,7 +40,8 @@ class AuthController extends Controller
     {
         // $user = User::where('email', '=', $request->user->email)->get();
 
-        dd(auth()->user());
+        $user = auth()->user();
+        $user->tokens()->delete();
         return response()->json([
             'logout' => "sucess"
         ]);
@@ -48,7 +49,7 @@ class AuthController extends Controller
 
     public function me(Request $request)
     {
-        $user =  $request->user;
+        $user = auth()->user();
         return response()->json([
             'user' => $user
         ]);
